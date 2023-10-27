@@ -53,7 +53,7 @@ void ReadLine()
             itLine = line.begin();
         }
 
-        former_unit = unit; // ?
+        former_unit = unit; //读取前保存上一unit的line和column备用
 
         istringstream iss(line);
 
@@ -75,6 +75,8 @@ void ReadLine()
             iss >> unit.key;
             iss >> unit.line;
             iss >> unit.column;
+            
+//            cout << "current token:" << ' ' << unit.value << ' ' << unit.key << ' ' << unit.line << ' ' << unit.column << endl;
         }
     }
 }
@@ -86,87 +88,115 @@ void ThrowError(int type){
     
     switch(type)
     {
+            //0 ok test
         case 0:
             cout << "[Grammar ERROR] " << " [" << unit.line << "," << unit.column << "] " << "Spell error \"program\"" << endl;
             break;
+            //1 ok test
         case 1:
-            cout << "[Grammar ERROR] " << " [" << unit.line << "," << unit.column << "] " << "Missing identifier after \"program\"" << endl;
+            cout << "[Grammar ERROR] " << " [" << former_unit.line << "," << former_unit.column << "] " << "Missing identifier after \"program\"" << endl;
             break;
+            //2 ok test
         case 2:
             cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing end character \";\"" << endl;
             break;
+            //3 ok test
         case 3:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing identifier in \"const\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing identifier in \"const\"" << endl;
             break;
+            //4 ok test
         case 4:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing assignment operation" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing assignment operation in const" << endl;
             break;
+            //5 ok test
         case 5:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing assignment integer" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing assignment integer in const" << endl;
             break;
+            //6 ok test
         case 6:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing identifier after \"var\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing identifier after \"var\"" << endl;
             break;
+            //7 ok test
         case 7:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing identifier after \",\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing identifier after \",\" in var" << endl;
             break;
+            //8 ok test
         case 8:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Cannot resolve type \"" << unit.value << "\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Cannot resolve type in block \"" << unit.value << "\"" << endl;
             break;
+            //9 ok test
         case 9:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing identifier after \"procedure\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing identifier after \"procedure\"" << endl;
             break;
+            //10 ok test
         case 10:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing parentheses in \"procedure\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing parentheses in \"procedure\"" << endl;
             break;
+            //11 ok test
         case 11:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing identifier in \"procedure\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Wrong ID in \"procedure\"" << endl;
             break;
+            //12 ok 写测试样例时不能让缺失的begin在procedure里 test
         case 12:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing word \"begin\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing word \"begin\"" << endl;
             break;
+            //13 ok test
         case 13:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing word \"end\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing word \"end\"" << endl;
             break;
+            //14 没做
         case 14:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing statement identifier" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing statement identifier" << endl;
             break;
+            //15 ok test
         case 15:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing word \"then\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing word \"then\"" << endl;
             break;
+            //16 ok test
         case 16:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing word \"do\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing word \"do\"" << endl;
             break;
+            //17 ok test
         case 17:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing identifier in \"call\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing identifier in \"call\"" << endl;
             break;
+            //18 ok call中只做了右括号缺失的处理 test
         case 18:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing parentheses in \"call\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing right parentheses in \"call\"" << endl;
             break;
+            //19 ok test
         case 19:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing identifier in \"read\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing identifier in \"read\"" << endl;
             break;
+            //20 ok test
         case 20:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing parentheses in \"read\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing parentheses in \"read\"" << endl;
             break;
+            //21 ok test
         case 21:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing parentheses in \"write\"" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing parentheses in \"write\"" << endl;
             break;
+            //22 ok test
         case 22:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing the compare operator" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing the compare operator" << endl;
             break;
+            //23 ok test
         case 23:
-            cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Missing parentheses" << endl;
+            cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " <<"Missing right parentheses in facter" << endl;
             break;
+            //24 ok test
         case 24:
             cout << "[Grammar ERROR] "<< " [" << unit.line << "," << unit.column << "] " <<"Wrong factor" << endl;
             break;
+            //25 ok test
         case 25:
             cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " << "Extra semicolon \";\" before \"end\"" << endl;
             break;
+            //26 ok test
         case 26:
             cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " << "Missing comma \",\" in \"var\"" << endl;
             break;
+            //27 没做
         case 27:
             cout << "[Grammar ERROR] "<< " [" << former_unit.line << "," << former_unit.column << "] " << "Missing comma \",\" in \"condecl\"" << endl;
             break;
@@ -178,6 +208,7 @@ void ThrowError(int type){
 
 void Exp();
 
+//<factor>→<id>|<integer>|(<exp>)
 void Factor()
 {
     if (unit.key == "ID" || *errorType == 24)
@@ -194,6 +225,8 @@ void Factor()
     {
         ReadLine();
         Exp();
+        
+        if (error) return;
         if ((unit.key == "SOP" && unit.value == ")") || *errorType == 23)
         {
             if (unit.value != ")" && *errorType == 23)
@@ -212,16 +245,23 @@ void Factor()
     }
 }
 
+//<term> → <factor>{<mop><factor>}
 void Term()
 {
     Factor();
+    
+    if (error) return;
     while (unit.value == "*" || unit.value == "/")
     {
         ReadLine();
         Factor();
+        
+        if (error) return;
     }
 }
 
+
+//<exp> → [+|-]<term>{<aop><term>}
 void Exp()
 {
     if (unit.value == "+" || unit.value == "-")
@@ -229,23 +269,32 @@ void Exp()
         ReadLine();
     }
     Term();
+    
+    if (error) return;
     while (unit.value == "+" || unit.value == "-")
     {
         ReadLine();
         Term();
+        
+        if (error) return;
     }
 }
 
+//<lexp> → <exp> <lop> <exp>|odd <exp>
 void Lexp()
 {
     if (unit.value == "odd")
     {
         ReadLine();
         Exp();
+        
+        if (error) return;
     }
     else
     {
         Exp();
+        
+        if (error) return;
         if (unit.key == "COP" || *errorType == 22)
         {
             if (unit.key != "COP" && *errorType == 22)
@@ -253,6 +302,8 @@ void Lexp()
             else
                 ReadLine();
             Exp();
+            
+            if (error) return;
         }
         else
         {
@@ -265,12 +316,21 @@ void Lexp()
 
 void Body();
 
+//<statement> → <id> := <exp>
+//               |if <lexp> then <statement>[else <statement>]
+//               |while <lexp> do <statement>
+//               |call <id>（[<exp>{,<exp>}]）
+//               |<body>
+//               |read (<id>{，<id>})
+//               |write (<exp>{,<exp>})
 void Statement()
 {
     if (unit.key == "RESERVED" && unit.value == "if")
     {
         ReadLine();
         Lexp();
+        
+        if (error) return;
         if ((unit.key == "RESERVED" && unit.value == "then") || *errorType == 15)
         {
             if (*errorType == 15 && unit.value != "then")
@@ -278,15 +338,20 @@ void Statement()
             else
                 ReadLine();
             Statement();
+            
+            if (error) return;
             if (unit.key == "RESERVED" && unit.value == "else")
             {
                 ReadLine();
                 Statement();
+                
+                if (error) return;
             }
         }
         else
         {
             ThrowError(15);
+            return;
         }
 
     }
@@ -295,6 +360,8 @@ void Statement()
     {
         ReadLine();
         Lexp();
+        
+        if (error) return;
         if ((unit.key == "RESERVED" && unit.value == "do") || *errorType == 16)
         {
             if (*errorType == 16 && unit.value != "do")
@@ -302,10 +369,13 @@ void Statement()
             else
                 ReadLine();
             Statement();
+            
+            if (error) return;
         }
         else
         {
             ThrowError(16);
+            return;
         }
 
     }
@@ -322,13 +392,17 @@ void Statement()
             if (unit.key == "SOP" && unit.value == "(")
             {
                 ReadLine();
-                if (unit.value != ")")
+                if (unit.value != ")" && unit.value != ";" && unit.value != "end")
                 {
                     Exp();
+                    
+                    if (error) return;
                     while (unit.key == "SOP" && unit.value == ",")
                     {
                         ReadLine();
                         Exp();
+                        
+                        if (error) return;
                     }
                 }
                 if ((unit.key == "SOP" && unit.value == ")") || *errorType == 18)
@@ -341,12 +415,14 @@ void Statement()
                 else
                 {
                     ThrowError(18);
+                    return;
                 }
             }
         }
         else
         {
             ThrowError(17);
+            return;
         }
 
     }
@@ -379,6 +455,7 @@ void Statement()
                     else
                     {
                         ThrowError(19);
+                        return;
                     }
                 }
                 if (unit.key == "SOP" && unit.value == ")" || *errorType == 20)
@@ -391,17 +468,20 @@ void Statement()
                 else
                 {
                     ThrowError(20);
+                    return;
                 }
             }
             else
             {
                 ThrowError(19);
+                return;
             }
 
         }
         else
         {
             ThrowError(20);
+            return;
         }
 
     }
@@ -416,10 +496,14 @@ void Statement()
             else
                 ReadLine();
             Exp();
+            
+            if (error) return;
             while (unit.key == "SOP" && unit.value == ",")
             {
                 ReadLine();
                 Exp();
+                
+                if (error) return;
             }
             if (unit.key == "SOP" && unit.value == ")" || *errorType == 21)
             {
@@ -431,11 +515,13 @@ void Statement()
             else
             {
                 ThrowError(21);
+                return;
             }
         }
         else
         {
             ThrowError(21);
+            return;
         }
 
     }
@@ -449,10 +535,13 @@ void Statement()
             else
                 ReadLine();
             Exp();
+            
+            if (error) return;
         }
         else
         {
             ThrowError(4);
+            return;
         }
     }
 
@@ -462,6 +551,7 @@ void Statement()
     }
 }
 
+//<body> → begin <statement>{;<statement>}end
 void Body()
 {
     if (unit.key == "RESERVED" && unit.value == "begin" || *errorType == 12)
@@ -471,6 +561,8 @@ void Body()
         else
             ReadLine();
         Statement();
+        
+        if (error) return;
         while (unit.key == "EOP" && unit.value == ";")
         {
             ReadLine();
@@ -481,12 +573,15 @@ void Body()
                 break;
             }
             Statement();
+            
+            if (error) return;
         }
         if(*errorType == 25)
         {
             errorType++;
         }
-        if (unit.key == "RESERVED" && unit.value == "end" || *errorType == 13) {
+        if (unit.key == "RESERVED" && unit.value == "end" || *errorType == 13) 
+        {
             if (*errorType == 13 && unit.value != "end")
                 errorType++;
             else
@@ -506,6 +601,7 @@ void Body()
 
 void Block();
 
+//<proc> → procedure <id>（[<id>{,<id>}]）;<block>{;<proc>}
 void Proc()
 {
     if(unit.key == "ID" || *errorType == 9)
@@ -520,14 +616,13 @@ void Proc()
                 errorType++;
             else
                 ReadLine();
-            if (unit.value != ")")
+            if (unit.value != ")" && unit.value != ";")
             {
                 if (unit.key == "ID" || *errorType == 11)
                 {
                     if (*errorType == 11 && unit.key != "ID")
                         errorType++;
-                    else
-                        ReadLine();
+                    ReadLine();
                     
                     while (unit.value == "," && unit.key == "SOP")
                     {
@@ -548,6 +643,7 @@ void Proc()
                 else
                 {
                     ThrowError(11);
+                    return;
                 }
             }
             if (unit.key == "SOP" && unit.value == ")" || *errorType == 10)
@@ -564,11 +660,15 @@ void Proc()
                     else
                         ReadLine();
                     Block();
+                    
+                    if (error) return;
 
                     while (unit.key == "EOP" && unit.value == ";")
                     {
                         ReadLine();
                         Proc();
+                        
+                        if (error) return;
                     }
                 }
                 else
@@ -592,6 +692,7 @@ void Proc()
     }
 }
 
+//<vardecl> → var <id>{,<id>};
 void Vardecl()
 {
     if (unit.key == "ID" || *errorType == 6)
@@ -621,6 +722,7 @@ void Vardecl()
         if(unit.key == "ID")
         {
             ThrowError(26);
+            return;
         }
         if (unit.value == ";" && unit.key == "EOP" || *errorType == 2)
         {
@@ -640,6 +742,7 @@ void Vardecl()
     }
 }
 
+//<const> → <id>:=<integer>
 void Const()
 {
     if (unit.key == "ID" || *errorType == 3)
@@ -679,13 +782,18 @@ void Const()
     }
 }
 
+//<condecl> → const <const>{,<const>};
 void Condecl()
 {
     Const();
+    
+    if (error) return;
     while ((unit.key == "SOP" && unit.value == ","))
     {
         ReadLine();
         Const();
+        
+        if (error) return;
     }
     
     if ((unit.key == "EOP" && unit.value == ";") || *errorType == 2)
@@ -701,12 +809,15 @@ void Condecl()
     }
 }
 
+//<block> → [<condecl>][<vardecl>][<proc>]<body>
 void Block()
 {
     if (unit.value == "const" && unit.key == "RESERVED" && !error)
     {
         ReadLine();
         Condecl();
+        
+        if (error) return;
     }
     else if (unit.key == "ID" && *errorType != 8 && !error)
     {
@@ -732,6 +843,8 @@ void Block()
     {
         ReadLine();
         Vardecl();
+        
+        if (error) return;
     }
     else if (unit.key == "ID" && *errorType != 8 && !error)
     {
@@ -756,6 +869,8 @@ void Block()
     {
         ReadLine();
         Proc();
+        
+        if (error) return;
     }
     else if (unit.key == "ID" && *errorType != 8 && !error)
     {
@@ -779,9 +894,12 @@ void Block()
     if (!error)
     {
         Body();
+        
+        if (error) return;
     }
 }
 
+//<prog> → program <id>；<block>
 void Prog()
 {
     ReadLine();
@@ -803,6 +921,8 @@ void Prog()
                 else
                     ReadLine();
                 Block();
+                
+                if (error) return;
             }
             else
             {

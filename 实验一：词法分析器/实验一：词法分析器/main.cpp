@@ -125,13 +125,13 @@ void Retract()
  */
 int main()
 {
-    string inputFileName;
+//    string inputFileName;
+//
+//    cout << "Enter the program file name: ";
+//    cin >> inputFileName;
+//    cout << endl;
 
-    cout << "Enter the program file name: ";
-    cin >> inputFileName;
-    cout << endl;
-
-    source.open(inputFileName, ios::in);           // Read file
+    source.open("input.txt", ios::in);           // Read file
     output.open("la_output", ios::out | ios::trunc); // Write file
     line = 1;
     column = 1;
@@ -156,9 +156,14 @@ int main()
         timeinfo = localtime(&rawtime);
 
         output << "# Generate Time: " << asctime(timeinfo);
-        output << "# Program File Name: " << inputFileName << endl;
+        output << "# Program File Name: " << "input.txt" << endl;
         output << "# Language Set: PL/0" << endl;
         output << endl;
+        
+        cout << "# Generate Time: " << asctime(timeinfo);
+        cout << "# Program File Name: " << "input.txt" << endl;
+        cout << "# Language Set: PL/0" << endl;
+        cout << endl;
     }
 
     string strToken;

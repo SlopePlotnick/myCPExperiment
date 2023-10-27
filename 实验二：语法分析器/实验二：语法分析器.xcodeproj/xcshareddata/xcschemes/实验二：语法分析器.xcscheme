@@ -35,7 +35,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/plotnickslope/Desktop/&#x5b66;&#x4e60;&#x8d44;&#x6599;/&#x7f16;&#x8bd1;&#x539f;&#x7406;/&#x5b9e;&#x9a8c;/&#x5b9e;&#x9a8c;&#x4e8c;&#xff1a;&#x8bed;&#x6cd5;&#x5206;&#x6790;&#x5668;/&#x5b9e;&#x9a8c;&#x4e8c;&#xff1a;&#x8bed;&#x6cd5;&#x5206;&#x6790;&#x5668;"
+      customWorkingDirectory = "/Users/plotnickslope/Desktop/&#x5b66;&#x4e60;&#x8d44;&#x6599;/&#x7f16;&#x8bd1;&#x539f;&#x7406;/&#x5b9e;&#x9a8c;/&#x5b9e;&#x9a8c;&#x4e00;&#xff1a;&#x8bcd;&#x6cd5;&#x5206;&#x6790;&#x5668;/&#x5b9e;&#x9a8c;&#x4e00;&#xff1a;&#x8bcd;&#x6cd5;&#x5206;&#x6790;&#x5668;"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"

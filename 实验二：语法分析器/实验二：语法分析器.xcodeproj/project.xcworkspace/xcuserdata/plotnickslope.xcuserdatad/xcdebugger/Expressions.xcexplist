@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Proc():main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "unit.value">
+            </PersistentString>
+            <PersistentString
+               value = "*errorType">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Block():main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "unit.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Body():main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "unit.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Statement():main.cpp">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
